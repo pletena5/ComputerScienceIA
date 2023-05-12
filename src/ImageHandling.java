@@ -15,7 +15,7 @@ public class ImageHandling {
 
     public ImageHandling() {
         try {
-            File input = new File("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\trump.jfif");
+            File input = new File("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\trump.png");
             image = ImageIO.read(input);
             width = image.getWidth();
             height = image.getHeight();
