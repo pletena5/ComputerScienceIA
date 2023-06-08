@@ -1,3 +1,4 @@
+
 public class PathFinder {
     int height;
     int width;
@@ -14,25 +15,27 @@ public class PathFinder {
         this.RGBvalues = RGBvalues;
     }// constructor
 
-    public Integer[] centre(){
-        Boolean inWall = true;
-        Integer[] cent = new Integer[2];
-        cent[0] = height/2;
-        cent[1] = width/2;
+    public void getArea (FloorPlan fp){
+        int ID = 0;
+        boolean full = false;
+        Integer [] centre = fp.centre();
 
-        while (inWall == true) {
-            if (RGBvalues[cent[0]][cent[1]] > 100) {
-                inWall = false;
-            }else{
-                cent[0] = cent[0] + 1;
-            }// checks if centre is in a wall
-        }// loop until chosen centre isnt in a wall
+        Pixel p = new Pixel(RGBvalues[height][width]);
 
-        return cent;
-    }// centre finder
+        while (!full){
+            p.ID = ID;
+            ID++;
 
-    public void getArea (){
+            p.Left = new Pixel(RGBvalues[centre[0]][centre[1] - 1]);
+            p.Right = new Pixel(RGBvalues[centre[0]][centre[1] + 1]);
+            p.Top = new Pixel(RGBvalues[centre[0] + 1][centre[1]]);
+            p.Bottom = new Pixel(RGBvalues[centre[0] - 1][centre[1]]);
 
-    }// works out the area by spreading outward
+        }// while loop
+
+    }// works out the area by spreading outward - floodfill method
+
+
+
 
 }// class pathfinder

@@ -13,9 +13,9 @@ public class ImageHandling {
     int height;
     Integer[][] imageValues;
 
-    public ImageHandling() {
+    public ImageHandling(String pathname) {
         try {
-            File input = new File("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\trump.png");
+            File input = new File(pathname);
             image = ImageIO.read(input);
             width = image.getWidth();
             height = image.getHeight();
@@ -42,6 +42,10 @@ public class ImageHandling {
 
 
     }// constructor
+
+    public Integer[][] getImageValues(){
+        return imageValues;
+    }// get image value arrray list
 
     public ArrayList<String> getFileValues(){
         FileHandling x = new FileHandling();

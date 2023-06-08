@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ImageHandling x = new ImageHandling();
+        ImageHandling x = new ImageHandling("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\trump.png");
         System.out.println("");
 
         x.upload();
