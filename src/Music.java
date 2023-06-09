@@ -7,7 +7,7 @@ import java.io.*;
 public class Music {
 
     public Music(){
-        File myFile = new File("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\E.mp3");
+        File myFile = new File("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\EM.mp3");
 
 
         FileInputStream fileInputStream;

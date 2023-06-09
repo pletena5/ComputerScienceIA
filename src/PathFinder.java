@@ -22,16 +22,7 @@ public class PathFinder {
 
         Pixel p = new Pixel(RGBvalues[height][width]);
 
-        while (!full){
-            p.ID = ID;
-            ID++;
 
-            p.Left = new Pixel(RGBvalues[centre[0]][centre[1] - 1]);
-            p.Right = new Pixel(RGBvalues[centre[0]][centre[1] + 1]);
-            p.Top = new Pixel(RGBvalues[centre[0] + 1][centre[1]]);
-            p.Bottom = new Pixel(RGBvalues[centre[0] - 1][centre[1]]);
-
-        }// while loop
 
     }// works out the area by spreading outward - floodfill method
 
