@@ -32,4 +32,8 @@ public class FloorPlan {
         return cent;
     }// centre finder
 
+    public int getArea(){
+
+    }// get area method
+
 }// floorplan class

@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 
 public class PathFinder {
     int height;
     int width;
     Integer [] [] RGBvalues;
     int pixels;
-    Integer[] usedPixels;
+    ArrayList<ArrayList<Integer>> usedPixels;
 
     public PathFinder(Integer[][] RGBvalues){
         int height = RGBvalues.length;
@@ -20,13 +21,14 @@ public class PathFinder {
         boolean full = false;
         Integer [] centre = fp.centre();
 
-        Pixel p = new Pixel(RGBvalues[height][width]);
 
 
+        Pixel p = new Pixel(RGBvalues[centre[0]][centre[1]] , centre[0] , centre[1]);
+        ArrayList<ArrayList<Integer>> newUsedPixels = p.expand(centre[0] , centre[1] , RGBvalues , usedPixels);
+        int pixNum = newUsedPixels.size();
+        //p.expand(p.coord[0] , p.coord[1] , RGBvalues , usedPixels);
 
     }// works out the area by spreading outward - floodfill method
-
-
 
 
 }// class pathfinder
