@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class FloorPlan {
 
     Integer[][] imageValues;
@@ -33,6 +35,11 @@ public class FloorPlan {
     }// centre finder
 
     public int getArea(){
+        Pixel p = new Pixel(imageValues[centre()[0]][centre()[1]] , centre()[0] , centre()[1] );
+        ArrayList<ArrayList<Integer>> usedPixels = new ArrayList<ArrayList<Integer>>();
+        usedPixels = p.expand(p.coord[0] , p.coord[1] , imageValues , usedPixels);
+
+        return usedPixels.size();
 
     }// get area method
 

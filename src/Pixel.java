@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Pixel {
 
     int rgb;
-    int[] coord;
+    int[] coord = new int[2];
 
     Pixel Left;
     Pixel Right;
@@ -39,9 +39,13 @@ public class Pixel {
         }// for loop
 
         if (in == false) {
-            usedPixels.get(usedPixels.size()).set(0, h);
-            s = usedPixels.size();
-            usedPixels.get(s).set(0, w - 1);
+
+            ArrayList<Integer> ad = new ArrayList<Integer>();
+            ad.add(h);
+            ad.add(w-1);
+
+            usedPixels.add(ad);
+
             added = true;
         }// if statement
 
@@ -54,9 +58,12 @@ public class Pixel {
         }// for loop
 
         if (in == false) {
-            usedPixels.get(usedPixels.size()).set(0, h);
-            s = usedPixels.size();
-            usedPixels.get(s).set(0, w + 1);
+            ArrayList<Integer> ad = new ArrayList<Integer>();
+            ad.add(h);
+            ad.add(w+1);
+
+            usedPixels.add(ad);
+
             added = true;
         }// if statement
 
@@ -69,9 +76,12 @@ public class Pixel {
         }// for loop
 
         if (in == false) {
-            usedPixels.get(usedPixels.size()).set(0, h-1);
-            s = usedPixels.size();
-            usedPixels.get(s).set(0, w);
+            ArrayList<Integer> ad = new ArrayList<Integer>();
+            ad.add(h-1);
+            ad.add(w);
+
+            usedPixels.add(ad);
+
             added = true;
         }// if statement
 
@@ -84,9 +94,12 @@ public class Pixel {
         }// for loop
 
         if (in == false) {
-            usedPixels.get(usedPixels.size()).set(0, h+1);
-            s = usedPixels.size();
-            usedPixels.get(s).set(0, w);
+            ArrayList<Integer> ad = new ArrayList<Integer>();
+            ad.add(h+1);
+            ad.add(w);
+
+            usedPixels.add(ad);
+
             added = true;
         }// if statement
 
@@ -123,7 +136,6 @@ public class Pixel {
             }// for loop bottom method
 
             return newUsedPixels;
-
 
         }// else if
 
