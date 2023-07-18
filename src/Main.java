@@ -15,7 +15,9 @@ public class Main {
         //int a = x.getArea();
         //System.out.println(a);
 
-        WebsiteReader.readWebsite("https://www.bexleygs.co.uk");
+        //WebsiteReader.readWebsite("https://www.bexleygs.co.uk");
+        ExcelFormat e = new ExcelFormat();
+        e.readFile("Document.xlsx");
 
         new Interface();
         new Music();

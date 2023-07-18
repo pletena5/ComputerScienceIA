@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class WebsiteReader {
 
     public static ArrayList<String> readWebsite(String website){
-        String websiteURL = website; // Replace with the actual URL of the website
+        String websiteURL = website;
         ArrayList<String> lines = new ArrayList<String>();
 
         try {
@@ -16,9 +16,10 @@ public class WebsiteReader {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                // Process each line of data here
+
                 lines.add(line);
                 System.out.println(line);
+
             }// while loop
 
             reader.close();
