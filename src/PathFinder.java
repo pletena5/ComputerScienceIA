@@ -26,9 +26,9 @@ public class PathFinder {
         Pixel p = new Pixel(RGBvalues[centre[0]][centre[1]] , centre[0] , centre[1]);
         ArrayList<ArrayList<Integer>> newUsedPixels = p.expand(centre[0] , centre[1] , RGBvalues , usedPixels);
         int pixNum = newUsedPixels.size();
-        //p.expand(p.coord[0] , p.coord[1] , RGBvalues , usedPixels);
 
-    }// works out the area by spreading outward - floodfill method
+
+    }
 
 
 }// class pathfinder

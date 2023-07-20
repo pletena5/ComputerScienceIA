@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
@@ -17,9 +18,14 @@ public class Main {
 
         //WebsiteReader.readWebsite("https://www.bexleygs.co.uk");
         ExcelFormat e = new ExcelFormat();
-        e.readFile("Document.xlsx");
+        //e.readFile(pathname);
 
-        new Interface();
+        GUI gui = new GUI();
+        String pathname = gui.directoryinput();
+
+        FloorPlan fp = new FloorPlan(pathname);
+        //fp.getArea();
+
         new Music();
 
     }// main method
