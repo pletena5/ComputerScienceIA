@@ -6,27 +6,37 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //FloorPlan x = new FloorPlan("C:\\Users\\17karasimov_m\\IdeaProjects\\Computer science IA\\trump.png");
+        FloorPlan x = new FloorPlan("Square.png");
         //System.out.println("");
 
         //x.upload();
-        //Integer[][] values = x.getArrValues();
+        Integer[][] values = x.getImageValues();
+
+        x.FloodFill(13 , 5 , -1);
+
+        for (int i = 0; i < x.imageValues.length; i++){
+            for (int j = 0; j < x.imageValues[0].length; j++){
+                System.out.print(x.imageValues[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+
+        //System.out.println(x.getArea());
         //PathFinder p = new PathFinder(values);
 
         //int a = x.getArea();
         //System.out.println(a);
 
         //WebsiteReader.readWebsite("https://www.bexleygs.co.uk");
-        ExcelFormat e = new ExcelFormat();
+        //ExcelFormat e = new ExcelFormat();
         //e.readFile(pathname);
 
-        GUI gui = new GUI();
-        String pathname = gui.directoryinput();
+        //GUI gui = new GUI();
+        //String pathname = gui.directoryinput();
 
-        FloorPlan fp = new FloorPlan(pathname);
+        //FloorPlan fp = new FloorPlan(pathname);
         //fp.getArea();
-
-        new Music();
 
     }// main method
 

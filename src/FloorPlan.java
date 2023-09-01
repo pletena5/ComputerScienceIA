@@ -34,7 +34,7 @@ public class FloorPlan {
         return cent;
     }// centre finder
 
-    public int getArea(){
+    public int getPixelArea(){
         Pixel p = new Pixel(imageValues[centre()[0]][centre()[1]] , centre()[0] , centre()[1] );
         ArrayList<ArrayList<Integer>> usedPixels = new ArrayList<ArrayList<Integer>>();
         usedPixels = p.expand(p.coord[0] , p.coord[1] , imageValues , usedPixels);
@@ -42,5 +42,46 @@ public class FloorPlan {
         return usedPixels.size();
 
     }// get area method
+
+    public void FloodFill(int x , int y, int newValue){       //x is the height and y is width
+
+        Stack pixels = new Stack();
+        int width = imageValues[0].length;
+        int height = imageValues.length;
+
+        pixels.push(x , y);
+        int egg = 0;
+
+        while (pixels.peek() != null){
+            Integer[] p = pixels.pop();
+
+            if(p[0] >0 && p[0] < height && p[1]>0 && p[1] < width && imageValues[p[0]][p[1]] > 100 && imageValues[p[0]][p[1]] != newValue){
+                imageValues[p[0]][p[1]] = newValue;
+
+                pixels.push(p[0] + 1, p[1]);
+                pixels.push(p[0] - 1, p[1]);
+                pixels.push(p[0], p[1] + 1);
+                pixels.push(p[0] , p[1] - 1);
+
+
+
+                for (int i = 0; i < imageValues.length; i++){
+                    for (int j = 0; j < imageValues[0].length; j++){
+                        System.out.print(imageValues[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+                System.out.println();
+                System.out.println();
+                System.out.println();
+
+                // above code displays the floodfill algorithm filling with each iteration
+
+
+
+            }// if statement
+        }// while loop
+
+    }// floodfill method
 
 }// floorplan class
