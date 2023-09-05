@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
+
+        /*
 
         FloorPlan x = new FloorPlan("Square.png");
         //System.out.println("");
@@ -20,6 +22,11 @@ public class Main {
             }
             System.out.println();
         }
+
+*/
+        GUI gui = new GUI();
+        gui.loadingScreen();
+        gui.mainMenu();
 
 
         //System.out.println(x.getArea());

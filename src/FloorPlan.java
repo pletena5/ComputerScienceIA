@@ -34,12 +34,19 @@ public class FloorPlan {
         return cent;
     }// centre finder
 
-    public int getPixelArea(){
-        Pixel p = new Pixel(imageValues[centre()[0]][centre()[1]] , centre()[0] , centre()[1] );
-        ArrayList<ArrayList<Integer>> usedPixels = new ArrayList<ArrayList<Integer>>();
-        usedPixels = p.expand(p.coord[0] , p.coord[1] , imageValues , usedPixels);
+    public int getPixelArea(int x , int y ){
+        FloodFill(x , y , -1);
+        int pCount = 0;
 
-        return usedPixels.size();
+        for (int i = 0; i < imageValues[0].length ; i++){
+            for (int j = 0; j < imageValues.length ; j++){
+                if (imageValues[j][i] == -1){
+                    pCount = pCount + 1;
+                }
+            }
+        }
+
+        return pCount;
 
     }// get area method
 
@@ -64,7 +71,7 @@ public class FloorPlan {
                 pixels.push(p[0] , p[1] - 1);
 
 
-
+/*
                 for (int i = 0; i < imageValues.length; i++){
                     for (int j = 0; j < imageValues[0].length; j++){
                         System.out.print(imageValues[i][j] + " ");
@@ -74,7 +81,7 @@ public class FloorPlan {
                 System.out.println();
                 System.out.println();
                 System.out.println();
-
+*/
                 // above code displays the floodfill algorithm filling with each iteration
 
 

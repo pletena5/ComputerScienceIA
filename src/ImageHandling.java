@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 
 public class ImageHandling {
@@ -38,6 +39,9 @@ public class ImageHandling {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            JOptionPane.showMessageDialog(null , "!ERROR!  :  File not found");
+
         }
 
 

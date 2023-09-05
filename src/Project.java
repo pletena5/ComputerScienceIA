@@ -1,22 +1,22 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Project {
-    ArrayList<FloorPlan> FloorPlans = new ArrayList<FloorPlan>();
-    ArrayList<String> FloorPlanNames = new ArrayList<String>();
+    FloorPlan fp;
 
-    public void addPlan(FloorPlan plan , String name){
-        FloorPlans.add(plan);
-        FloorPlanNames.add(name);
-    }// add floorplan class
+    public Project(String filename){
+        fp = new FloorPlan(filename);
 
-    public FloorPlan getPlan(String name){
-        for (int i = 0 ; i < FloorPlanNames.size() ; i++){
-            if (name == FloorPlanNames.get(i)){
-                return FloorPlans.get(i);
-            }// if statement
-        }// for loop
+        FileHandling fh = new FileHandling();
+        ArrayList<String> numProjectsArr = fh.lineReturn("Projects.txt");
+        Integer numProjects = Integer.parseInt(numProjectsArr.get(0));
 
-        return null;
-    }//get floor plan method
+        numProjects = numProjects+1;
+        fh.FileWrite("Projects.txt" , numProjects.toString() , false);
+
+        fh.FileWrite("ProjectDirectories.txt" , filename , true);
+
+
+    }// creates the project
 
 }// project class
