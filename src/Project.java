@@ -14,7 +14,7 @@ public class Project {
         numProjects = numProjects+1;
         fh.FileWrite("Projects.txt" , numProjects.toString() , false);
 
-        fh.FileWrite("ProjectDirectories.txt" , filename , true);
+        fh.FileWriteLine("ProjectDirectories.txt" , filename , true);
 
 
     }// creates the project

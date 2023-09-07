@@ -87,7 +87,7 @@ public class FileHandling{
                 FileWriter write = new FileWriter(Filename , append);
                 PrintWriter writer= new PrintWriter(write);
         ){
-            writer.print(Text);
+            writer.println(Text);
         }// try
         catch(IOException e){
             e.printStackTrace();
