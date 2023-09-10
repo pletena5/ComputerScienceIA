@@ -312,6 +312,11 @@ public class GUI {
 
                     Image loadingScreen = bufferedImage.getScaledInstance(1000 , 1000 , 0);
 
+                    int ScaleFactorX = 1000  / bufferedImage.getWidth();
+                    int ScaleFactorY = 1000 / bufferedImage.getHeight();
+
+                    System.out.println("original width: " + bufferedImage.getWidth() + ", original height:  " + bufferedImage.getHeight());
+
                     ImageIcon image = new ImageIcon(loadingScreen);
                     JLabel imageDisplay = new JLabel(image);
 
@@ -322,45 +327,60 @@ public class GUI {
                     panel.setLayer(imageDisplay , 1);
 
 
-                    final int[] clickss = {0};
+                    int[] clickss = {0};
                     int dist = Integer.parseInt(JOptionPane.showInputDialog("Please select 2 points on the floorplan that are the specified distance apart (insert distance): "));
                     ArrayList<Integer> arrint = new ArrayList<Integer>();
-                    final double[] singlePixDist = {0};
+                    double[] singlePixDist = {0};
 
                     imageDisplay.addMouseListener(new MouseListener() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             clickss[0] = clickss[0] + 1;
+                            System.out.println("num clicks" + clickss[0]);
 
                             if (clickss[0] < 2){
                                 int y = e.getY();
                                 int x = e.getX();
 
-                                arrint.add(x , y);
+                                System.out.println("x , y coordinates raw" + x + " " + y);
+
+                                arrint.add(x / ScaleFactorX);
+                                arrint.add(y / ScaleFactorY);
 
                             } else if (clickss[0] == 2){
                                 int y = e.getY();
                                 int x = e.getX();
 
-                                arrint.add(x , y);
+                                System.out.println("raw x y coords 2" + x + " " + y);
 
-                                int dx = Math.abs(arrint.get(0) - arrint.get(2));
-                                int dy = Math.abs(arrint.get(1) - arrint.get(3));
+                                arrint.add(x / ScaleFactorX);
+                                arrint.add(y / ScaleFactorY);
+
+                                int dx = (Math.abs(arrint.get(0) - arrint.get(2)));
+                                int dy = (Math.abs(arrint.get(1) - arrint.get(3)));
 
                                 double pixDist = Math.sqrt(Math.pow(dx , 2) + Math.pow(dy , 2));
                                 singlePixDist[0] = dist / pixDist;
+
+                                System.out.println("Distance in pixels measured " + pixDist);
+                                System.out.println("metres in a pixel " + singlePixDist[0]);
 
                                 JOptionPane.showMessageDialog(null , "Please now click on the area you would like to calculate.");
 
                             }// if statement
                             else if (clickss[0] == 3){
-                                int x = e.getX();
-                                int y = e.getY();
+                                int x = e.getX() / ScaleFactorX;
+                                int y = e.getY() / ScaleFactorY;
 
-                                FloorPlan fpm = new FloorPlan(photoName);
-                                int pixelArea = fpm.getPixelArea(x , y);
+                                System.out.println("x y coords fed into floodfill: " + x + "  " + y);
 
-                                double totalArea = pixelArea * Math.pow(singlePixDist[0] , 2);
+                                FloorPlan fpm = new FloorPlan("Square.png");
+                                fpm.FloodFill(y , x , -1);
+                                int pixelArea = fpm.getPixelArea();
+
+                                System.out.println(pixelArea);
+
+                                double totalArea = Math.round((pixelArea) * Math.pow(singlePixDist[0] , 2));
                                 JOptionPane.showMessageDialog(null , "The total area of that section is: " + totalArea);
 
                                 panel.removeAll();

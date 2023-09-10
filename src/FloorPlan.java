@@ -34,14 +34,23 @@ public class FloorPlan {
         return cent;
     }// centre finder
 
-    public int getPixelArea(int x , int y ){
-        FloodFill(x , y , -1);
+    public int getPixelArea(){
         int pCount = 0;
 
-        for (int i = 0; i < imageValues[0].length ; i++){
-            for (int j = 0; j < imageValues.length ; j++){
-                if (imageValues[j][i] == -1){
+        System.out.println("getpixel area method active");
+
+        for (int i = 0; i < imageValues.length ; i++){
+            for (int j = 0; j < imageValues[0].length ; j++){
+                System.out.print(imageValues[i][j]);
+            }
+            System.out.println();
+        }
+
+        for (int i = 0; i < imageValues.length ; i++){
+            for (int j = 0; j < imageValues[0].length ; j++){
+                if (imageValues[i][j] == -1){
                     pCount = pCount + 1;
+                    //System.out.println("true");
                 }
             }
         }
@@ -55,6 +64,9 @@ public class FloorPlan {
         Stack pixels = new Stack();
         int width = imageValues[0].length;
         int height = imageValues.length;
+
+        System.out.println("floodfill method active");
+        System.out.println(width + "  " + height);
 
         pixels.push(x , y);
         int egg = 0;
@@ -70,8 +82,8 @@ public class FloorPlan {
                 pixels.push(p[0], p[1] + 1);
                 pixels.push(p[0] , p[1] - 1);
 
-
 /*
+
                 for (int i = 0; i < imageValues.length; i++){
                     for (int j = 0; j < imageValues[0].length; j++){
                         System.out.print(imageValues[i][j] + " ");

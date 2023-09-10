@@ -31,7 +31,7 @@ public class ImageHandling {
 
                     count++;
                     Color c = new Color(image.getRGB(j, i));
-                    System.out.println(" Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
+                    //System.out.println(" Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
                     imageValues[i][j] = (c.getRed() + c.getGreen() + c.getBlue());
                 }
             }
