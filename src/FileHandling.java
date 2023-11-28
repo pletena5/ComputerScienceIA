@@ -109,6 +109,22 @@ public class FileHandling{
 
     }// filewrite
 
+
+    public static void FileDelete(String Filename){
+
+        try(
+                FileWriter write = new FileWriter(Filename);
+                PrintWriter writer= new PrintWriter(write);
+        ){
+            writer.flush();
+        }// try
+        catch(IOException e){
+            e.printStackTrace();
+        }// exception
+
+    }// filewrite
+
+
     public static String LineRead(int lineNumber , String fileName){
         int ascii = 0;
         int num = 0;

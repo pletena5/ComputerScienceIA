@@ -39,6 +39,9 @@ public class FloorPlan {
 
         System.out.println("getpixel area method active");
 
+        System.out.println(imageValues.length);
+        System.out.println(imageValues[0].length);
+
         for (int i = 0; i < imageValues.length ; i++){
             for (int j = 0; j < imageValues[0].length ; j++){
                 System.out.print(imageValues[i][j]);
@@ -74,7 +77,7 @@ public class FloorPlan {
         while (pixels.peek() != null){
             Integer[] p = pixels.pop();
 
-            if(p[0] >0 && p[0] < height && p[1]>0 && p[1] < width && imageValues[p[0]][p[1]] > 100 && imageValues[p[0]][p[1]] != newValue){
+            if(p[0] >0 && p[0] < height && p[1]>0 && p[1] < width && imageValues[p[0]][p[1]] > 500 && imageValues[p[0]][p[1]] != newValue){
                 imageValues[p[0]][p[1]] = newValue;
 
                 pixels.push(p[0] + 1, p[1]);
