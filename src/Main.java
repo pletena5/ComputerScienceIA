@@ -25,9 +25,13 @@ public class Main {
 
 */
         GUI gui = new GUI();
+        gui.construct();
         gui.loadingScreen();
         gui.mainMenu();
 
+
+        //CostEstimationMenu e = new CostEstimationMenu();
+        //e.getMaterial();
 
         //System.out.println(x.getArea());
         //PathFinder p = new PathFinder(values);
