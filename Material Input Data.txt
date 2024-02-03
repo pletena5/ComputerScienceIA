@@ -1,0 +1,8 @@
+wood
+25
+cats
+4
+dogs
+3
+eggs
+3

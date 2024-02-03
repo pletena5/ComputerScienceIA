@@ -11,7 +11,12 @@ import java.util.ArrayList;
 
 public class CostEstimationMenu extends GUI{
 
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    private double area;
+
     public void costEstimationMenu(String photoName , double area){
+
+        this.area = area;
 
         try{
             frame.getContentPane().removeAll();
@@ -69,6 +74,10 @@ public class CostEstimationMenu extends GUI{
 
         deleteMaterialButton();
 
+        deleteAllButton();
+
+        displayArea();
+
     }// provides the cost estimation interface
 
 
@@ -76,18 +85,18 @@ public class CostEstimationMenu extends GUI{
 
 
 
-    public ArrayList<ArrayList<String>> getMatArr(){
+    public ArrayList<ArrayList<String>> getMatArr(String filename){
         ArrayList<ArrayList<String>> materials = new ArrayList<ArrayList<String>>();
 
         FileHandling fh = new FileHandling();
-        ArrayList<String> mat1d = fh.lineReturn("Material data.txt");
+        ArrayList<String> mat1d = fh.lineReturn(filename);
 
-        for (int i = 0; i < Math.ceil(mat1d.size()/3); i++){
+        for (int i = 0; i < Math.ceil(mat1d.size()); i++){
 
             ArrayList<String> temp = new ArrayList<>();
-            temp.add(mat1d.get(3*i));
-            temp.add(mat1d.get(3*i + 1));
-            temp.add(mat1d.get(3*i + 2));
+            temp.add(mat1d.get(i));
+            //temp.add(mat1d.get(3*i + 1));
+            //temp.add(mat1d.get(3*i + 2));
 
             materials.add(temp);
 
@@ -138,23 +147,30 @@ public class CostEstimationMenu extends GUI{
 
 
 
-    public String getMaterial(){
+    public int getMaterial(String filename){
         boolean incorrect = false;
         String mat = "";
+        int location = -1;
 
         while (incorrect == false) {
             mat = JOptionPane.showInputDialog("Select material: ");
+
+            if (mat.equals(null)){
+                return location;
+            }// if cancel pressed
+
             System.out.println(mat);
             String output = "You have entered: " + mat;
 
             ArrayList<ArrayList<String>> matArrr;
-            matArrr = getMatArr();
+            matArrr = getMatArr(filename);
             boolean inArr = false;
 
             for (int i = 0; i < matArrr.size(); i++){
                 System.out.println(matArrr.get(i).get(0));
                 if (mat.equals(matArrr.get(i).get(0))){
                     inArr = true;
+                    location = i;
                 }
             }// checks if material is available
 
@@ -167,20 +183,91 @@ public class CostEstimationMenu extends GUI{
                 }// if statement stopping while loop
                 else if (i == 2) {
                     incorrect = true;
-                    return "";
+                    return -1;
                 }// if cancel is pressed
                 else {
 
                 }// option pane options
             }else {
                 JOptionPane.showMessageDialog(null , "That is not a valid material, please try again.");
-                getMaterial();
+                getMaterial(filename);
             }// if in array
 
 
         }// while loop
-        return mat;
+        return location;
     }//takes input for chosen material
+
+
+
+
+
+    private boolean hasNumbers(String input) {
+        // Iterate through each character in the string
+        for (char c : input.toCharArray()) {
+            // Check if the character is a digit
+            if (Character.isDigit(c)) {
+                System.out.println("It has numbers");
+                return true; // The string contains at least one digit
+            }
+        }
+        System.out.println("It does not have numbers");
+        return false; // The string does not contain any digits
+    }// has numbers method
+
+
+
+
+
+
+
+
+
+    public ArrayList getInputMaterial(){
+        boolean incorrect = false;
+        String mat = "";
+        Double cost = -1.0;
+
+        while (incorrect == false) {
+            mat = JOptionPane.showInputDialog("Select material: ");
+            cost = Double.parseDouble(JOptionPane.showInputDialog("How much does it cost per square metre?"));
+            System.out.println(mat);
+            String output = "Are you sure you wish to add " + mat + " with a cost of " + cost.toString() + " per square metre?";
+
+
+            if (cost > 0 && hasNumbers(cost.toString()) == true) {
+
+                int i = JOptionPane.showConfirmDialog(null, output);
+
+                if (i == 0) {
+                    incorrect = true;
+                }// if statement stopping while loop
+                else if (i == 2) {
+                    incorrect = true;
+                    System.out.println("cancel");
+                    return null;
+                }// if cancel is pressed
+                else {
+
+                }// option pane options
+            }else {
+                JOptionPane.showMessageDialog(null , "That is not a valid material, please try again.");
+                getInputMaterial();
+            }// if in array
+
+
+        }// while loop
+        ArrayList<String> arr = new ArrayList<>();
+
+        arr.add(mat);
+        arr.add(cost.toString());
+
+        return arr;
+    }//takes input for chosen material
+
+
+
+
 
 
 
@@ -206,7 +293,11 @@ public class CostEstimationMenu extends GUI{
 
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String mat = getMaterial();
+                //ArrayList<String> array = getMaterial();
+                //String mat = array.get(0);
+                //String cost = array.get(1);
+
+                //panel.remove();
             }
         });
 
@@ -241,6 +332,17 @@ public class CostEstimationMenu extends GUI{
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                FileHandling fh = new FileHandling();
+
+                ArrayList<String> array = getInputMaterial();
+                String mat = array.get(0);
+                String cost = array.get(1);
+
+                System.out.println(mat + cost);
+
+                fh.FileWriteLine("Material Input Data.txt" , mat , true);
+                fh.FileWriteLine("Material Input Data.txt" , cost , true);
+
             }
         });
 
@@ -256,19 +358,86 @@ public class CostEstimationMenu extends GUI{
 
 
     public void createScrollDisplay(){
-        JPanel scrollPanel = new JPanel();
-        scrollPanel.setLayout(new FlowLayout());
-        JTextArea tArea = new JTextArea(10,10);
-        JScrollPane scrollPane = new JScrollPane(tArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPanel.add(scrollPane);
-        scrollPane.setVisible(true);
-        scrollPanel.setVisible(true);
-        scrollPanel.setLocation(400 , 350);
-        scrollPanel.setSize(500 , 500);
 
-        frame.getContentPane().add(scrollPanel);
-        panel.setLayer(scrollPanel , 2);
+        String heading = "Material          cost per square metre          cost       ";
+        listModel.addElement(heading);
+
+
+        JTextArea textArea = new JTextArea();
+        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+
+
+// Create a JScrollPane and add the JList to it
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        //scrollPane.setSize(200 , 300);
+        scrollPane.setPreferredSize(new Dimension(300, 300));
+        scrollPane.createHorizontalScrollBar();
+        scrollPane.createVerticalScrollBar();
+
+
+        FileHandling fh = new FileHandling();
+        ArrayList<String> Array = fh.lineReturn("Material Input Data.txt");
+
+        String materialDisplay = "   " + heading + "\n";
+
+        for (int i = 0 ; i < Array.size()/2 ; i++){
+            materialDisplay = materialDisplay + "   " + Array.get(2*i);
+            int length = Array.get(2*i).length();
+            int spacesNeeded = 18 - length;
+
+            System.out.println(spacesNeeded);
+
+            for (int j = 0 ; j < spacesNeeded ; j ++){
+                materialDisplay = materialDisplay + " ";
+            }// loop to add spaces to the string
+
+            length = Double.toString(Double.parseDouble(Array.get(2*i + 1))).length();
+            spacesNeeded = 31 - length;
+            materialDisplay = materialDisplay + Double.toString(Double.parseDouble(Array.get(2*i + 1)));
+
+            System.out.println(spacesNeeded);
+
+            for (int j = 0 ; j < spacesNeeded ; j ++){
+                materialDisplay = materialDisplay + " ";
+            }// loop to add spaces to the string
+
+            materialDisplay = materialDisplay + (Double.toString(Double.parseDouble(Array.get(2 * i + 1)) * area));
+            materialDisplay = materialDisplay + "\n";
+            System.out.println(materialDisplay);
+        }// looping through material array
+
+        textArea.setText(materialDisplay);
+
+
+// Set up the frame
+        JPanel ScrollPanel = new JPanel();
+        ScrollPanel.add(scrollPane);
+        ScrollPanel.setVisible(true);
+        ScrollPanel.setSize(500 , 400);
+        ScrollPanel.setLocation(400 , 350);
+
+        frame.getContentPane().add(ScrollPanel);
+        panel.setLayer(ScrollPanel , 2);
     }// creates cost display
+
+
+
+
+
+
+    public void displayArea (){
+        JLabel areaLabel = new JLabel("Area of selected region:   " + area);
+        JPanel areaLabelPanel = new JPanel();
+
+        areaLabelPanel.add(areaLabel);
+        areaLabelPanel.setVisible(true);
+        areaLabelPanel.setSize(230 , 40);
+        areaLabelPanel.setLocation(330 , 190);
+
+        panel.add(areaLabelPanel);
+        panel.setLayer(areaLabelPanel , 2);
+
+    }// displays the area of the selected part of floorplan
 
 
 
@@ -296,13 +465,29 @@ public class CostEstimationMenu extends GUI{
 
         homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String filename = "Material Input Data.txt";
 
+                int location = getMaterial(filename);
+                FileHandling fh = new FileHandling();
+                ArrayList<String> matArr = fh.lineReturn(filename);
+                matArr.remove(location);
+                matArr.remove(location);
+
+                if (matArr.size() != 0) {
+                    fh.FileDelete(filename);
+
+                    for (int i = 0; i < matArr.size(); i++) {
+                        fh.FileWriteLine(filename, matArr.get(i), true);
+                    }// fills file back in
+                } else {
+                    fh.FileDelete(filename);
+                }
             }
-        });
+        });// action listener implementation
 
         frame.getContentPane().add(homeButtonPanel);
         panel.setLayer(homeButtonPanel , 2);
-    }// creates button to manually add a material and price
+    }// creates button to delete materials
 
 
 
@@ -312,6 +497,37 @@ public class CostEstimationMenu extends GUI{
 
 
 
+
+
+
+    public void deleteAllButton(){
+        JPanel homeButtonPanel = new JPanel();
+        homeButtonPanel.setVisible(true);
+        homeButtonPanel.setSize(165 , 40);
+        homeButtonPanel.setLocation(1275 , 190);
+
+        JButton homeButton = new JButton("Delete All Materials");
+        homeButton. setFont(new FontUIResource("Helvetica", 0 , 15));
+        homeButtonPanel.add(homeButton);
+        homeButton.setVisible(true);
+        //homeButton.setOpaque(false);
+        //homeButton.setContentAreaFilled(false);
+        //homeButton.setBorderPainted(false);
+        //newProjectButton.setSize(200 , 200);
+
+        homeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                String filename = "Material Input Data.txt";
+                FileHandling fh = new FileHandling();
+                fh.FileDelete(filename);
+
+            }
+        });// action listener implementation
+
+        frame.getContentPane().add(homeButtonPanel);
+        panel.setLayer(homeButtonPanel , 2);
+    }// creates button to delete all saved materials
 
 
 
