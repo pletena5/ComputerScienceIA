@@ -63,7 +63,7 @@ public class FloorPlan {
 
     }// get area method
 
-    public void FloodFill(int x , int y, int newValue){       //x is the height and y is width
+    public int FloodFill(int x , int y, int newValue){       //x is the height and y is width
 
         Stack pixels = new Stack();
         int width = imageValues[0].length;
@@ -73,7 +73,7 @@ public class FloorPlan {
         System.out.println(width + "  " + height);
 
         pixels.push(x , y);
-        int egg = 0;
+        int pCount = 0;
 
         while (pixels.peek() != null){
             Integer[] p = pixels.pop();
@@ -85,6 +85,8 @@ public class FloorPlan {
                 pixels.push(p[0] - 1, p[1]);
                 pixels.push(p[0], p[1] + 1);
                 pixels.push(p[0] , p[1] - 1);
+
+                pCount = pCount + 1;
 
 /*
 
@@ -104,6 +106,15 @@ public class FloorPlan {
 
             }// if statement
         }// while loop
+
+        for (int i = 0; i < imageValues.length ; i++){
+            for (int j = 0; j < imageValues[0].length ; j++){
+                System.out.print(imageValues[i][j]);
+            }
+            System.out.println();
+        }
+
+        return pCount;
 
     }// floodfill method
 

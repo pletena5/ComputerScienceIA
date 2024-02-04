@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 public class CostEstimationMenu extends GUI{
 
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+   private JScrollPane scrollDisplay;
+   private  JPanel ScrollPanel = new JPanel();
     private double area;
 
     public void costEstimationMenu(String photoName , double area){
@@ -298,6 +299,11 @@ public class CostEstimationMenu extends GUI{
                 //String cost = array.get(1);
 
                 //panel.remove();
+                frame.getContentPane().remove(ScrollPanel);
+
+                createScrollDisplay();
+
+
             }
         });
 
@@ -360,7 +366,7 @@ public class CostEstimationMenu extends GUI{
     public void createScrollDisplay(){
 
         String heading = "Material          cost per square metre          cost       ";
-        listModel.addElement(heading);
+        //listModel.addElement(heading);
 
 
         JTextArea textArea = new JTextArea();
@@ -407,18 +413,26 @@ public class CostEstimationMenu extends GUI{
         }// looping through material array
 
         textArea.setText(materialDisplay);
+        this.scrollDisplay = scrollPane;
 
 
 // Set up the frame
-        JPanel ScrollPanel = new JPanel();
-        ScrollPanel.add(scrollPane);
+        ScrollPanel = new JPanel();
+        ScrollPanel.add(scrollDisplay);
         ScrollPanel.setVisible(true);
         ScrollPanel.setSize(500 , 400);
         ScrollPanel.setLocation(400 , 350);
 
         frame.getContentPane().add(ScrollPanel);
         panel.setLayer(ScrollPanel , 2);
+
     }// creates cost display
+
+
+
+
+
+
 
 
 

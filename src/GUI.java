@@ -208,26 +208,26 @@ public class GUI {
                         ex.printStackTrace();
                     }// error handling
 
-                    Image loadingScreen = bufferedImage.getScaledInstance(1000 , 1000 , 0);
+                    Image loadingScreen = bufferedImage.getScaledInstance(2000 , 1000 , 0);
 
-                    int ScaleFactorX = 1000  / bufferedImage.getWidth();
-                    int ScaleFactorY = 1000 / bufferedImage.getHeight();
+                    double ScaleFactorX = 2000.0  / bufferedImage.getWidth();
+                    double ScaleFactorY = 1000.0 / bufferedImage.getHeight();
 
                     System.out.println("original width: " + bufferedImage.getWidth() + ", original height:  " + bufferedImage.getHeight());
 
                     ImageIcon image = new ImageIcon(loadingScreen);
                     JLabel imageDisplay = new JLabel(image);
 
-                    imageDisplay.setLocation(500 , 20);
-                    imageDisplay.setSize(1000 , 1000);
+                    imageDisplay.setLocation(0 , 20);
+                    imageDisplay.setSize(2000 , 1000);
 
                     panel.add(imageDisplay);
                     panel.setLayer(imageDisplay , 1);
 
 
                     int[] clickss = {0};
-                    int dist = Integer.parseInt(JOptionPane.showInputDialog("Please select 2 points on the floorplan that are the specified distance apart (insert distance): "));
-                    ArrayList<Integer> arrint = new ArrayList<Integer>();
+                    Double dist = Double.parseDouble(JOptionPane.showInputDialog("Please select 2 points on the floorplan that are the specified distance apart (insert distance): "));
+                    ArrayList<Double> arrint = new ArrayList<Double>();
                     double[] singlePixDist = {0};
 
                     imageDisplay.addMouseListener(new MouseListener() {
@@ -242,8 +242,8 @@ public class GUI {
 
                                 System.out.println("x , y coordinates raw" + x + " " + y);
 
-                                arrint.add(x / ScaleFactorX);
-                                arrint.add(y / ScaleFactorY);
+                                arrint.add((double)x / ScaleFactorX);
+                                arrint.add((double)y / ScaleFactorY);
 
                             } else if (clickss[0] == 2){
                                 int y = e.getY();
@@ -251,13 +251,14 @@ public class GUI {
 
                                 System.out.println("raw x y coords 2" + x + " " + y);
 
-                                arrint.add(x / ScaleFactorX);
-                                arrint.add(y / ScaleFactorY);
+                                arrint.add((double)x / ScaleFactorX);
+                                arrint.add((double)y / ScaleFactorY);
 
-                                int dx = (Math.abs(arrint.get(0) - arrint.get(2)));
-                                int dy = (Math.abs(arrint.get(1) - arrint.get(3)));
+                                double dx = (Math.abs(arrint.get(0) - arrint.get(2)));
+                                //double dy = (Math.abs(arrint.get(1) - arrint.get(3)));
 
-                                double pixDist = Math.sqrt(Math.pow(dx , 2) + Math.pow(dy , 2));
+                                //double pixDist = Math.sqrt(Math.pow(dx , 2) + Math.pow(dy , 2));
+                                double pixDist = dx;
                                 singlePixDist[0] = dist / pixDist;
 
                                 System.out.println("Distance in pixels measured " + pixDist);
@@ -267,18 +268,18 @@ public class GUI {
 
                             }// if statement
                             else if (clickss[0] == 3){
-                                int x = e.getX() / ScaleFactorX;
-                                int y = e.getY() / ScaleFactorY;
+                                double x = (double)e.getX() / ScaleFactorX;
+                                double y = (double)e.getY() / ScaleFactorY;
 
-                                System.out.println("x y coords fed into floodfill: " + x + "  " + y);
+                                System.out.println("x y coords fed into floodfill: " + (int)x + "  " + (int)y);
 
                                 FloorPlan fpm = new FloorPlan(photoName);
-                                fpm.FloodFill(y , x , -1);
-                                int pixelArea = fpm.getPixelArea();
+                                int pixelArea = fpm.FloodFill((int)y , (int)x , -1);
+
 
                                 System.out.println(pixelArea);
 
-                                double totalArea = Math.round((pixelArea) * Math.pow(singlePixDist[0] , 2));
+                                double totalArea = (double)Math.round(100*(pixelArea * Math.pow(singlePixDist[0] , 2)))/100;
                                 JOptionPane.showMessageDialog(null , "The total area of that section is: " + totalArea);
 
                                 panel.removeAll();
