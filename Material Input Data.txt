@@ -1,2 +1,4 @@
 wood
 5.0
+sandpaper
+5.0

@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class GUI {
+abstract public class GUI {
 
     static JFrame frame;
     static JLayeredPane panel = new JLayeredPane();
@@ -348,10 +348,13 @@ public class GUI {
 
     public void settings(){
 
-        frame.getContentPane().removeAll();
+        //frame.getContentPane().removeAll();
 
-        homeButton();
-        refresh();
+        SettingsMenu menu = new SettingsMenu();
+        menu.settingsMenu();
+
+        //homeButton();
+        //refresh();
 
     }// settings button
 

@@ -407,7 +407,7 @@ public class CostEstimationMenu extends GUI{
                 materialDisplay = materialDisplay + " ";
             }// loop to add spaces to the string
 
-            materialDisplay = materialDisplay + (Double.toString(Double.parseDouble(Array.get(2 * i + 1)) * area));
+            materialDisplay = materialDisplay + (Double.toString(Math.round(Double.parseDouble(Array.get(2 * i + 1)) * area * (double)100) / (double)100));
             materialDisplay = materialDisplay + "\n";
             System.out.println(materialDisplay);
         }// looping through material array

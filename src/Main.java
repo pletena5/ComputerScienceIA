@@ -24,11 +24,17 @@ public class Main {
         }
 
 */
+        /*
         GUI gui = new GUI();
         gui.construct();
         gui.loadingScreen();
         gui.mainMenu();
 
+*/
+        MainMenu menu = new MainMenu();
+        menu.construct();
+        menu.loadingScreen();
+        menu.mainMenu();
 
         //CostEstimationMenu e = new CostEstimationMenu();
         //e.getMaterial();
